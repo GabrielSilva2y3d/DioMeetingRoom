@@ -8,6 +8,7 @@ import com.dio.crud.meetingroom.meetingRoom.model.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,7 +32,7 @@ public class RoomController {
         return roomRepository.findAll();
     }
 
-    @GetMapping("/rooms/id")
+    @GetMapping("/rooms/{id}")
     public ResponseEntity<Room> getRoomById(@PathVariable(value = "id") long roomId)
     throws ResourceNotFoundException{
         Room room = roomRepository.findById(roomId)
@@ -45,7 +46,7 @@ public class RoomController {
         return roomRepository.save(room);
     }
 
-    @PutMapping("/rooms/id")
+    @PutMapping("/rooms/{id}")
     public ResponseEntity<Room> updateRoom(@Valid @RequestBody @PathVariable(value = "id")
     long roomId, Room roomDetails) 
     throws ResourceNotFoundException{
@@ -60,6 +61,7 @@ public class RoomController {
 
     }
     
+    @DeleteMapping("/rooms/{id}")
     public Map<String, Boolean> deleteRoom(@PathVariable(value = "id") Long roomId)
     throws ResourceNotFoundException{
         Room room = roomRepository.findById(roomId)
